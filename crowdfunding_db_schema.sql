@@ -1,3 +1,4 @@
+-- Create Campaign table
 CREATE TABLE "Campaign" (
     "cf_id" INT   NOT NULL,
     "contact_id" INT   NOT NULL,
@@ -18,6 +19,7 @@ CREATE TABLE "Campaign" (
      )
 );
 
+-- Create Contact table
 CREATE TABLE "Contacts" (
     "contact_id" INT   NOT NULL,
     "first_name" VARCHAR(255)   NOT NULL,
@@ -28,6 +30,7 @@ CREATE TABLE "Contacts" (
      )
 );
 
+--Create Category table
 CREATE TABLE "Category" (
     "category_id" VARCHAR(255)   NOT NULL,
     "category" VARCHAR(255)   NOT NULL,
@@ -36,6 +39,7 @@ CREATE TABLE "Category" (
      )
 );
 
+-- Create Subcategory table
 CREATE TABLE "Subcategory" (
     "subcategory_id" VARCHAR(255)   NOT NULL,
     "subcategory" VARCHAR(255)   NOT NULL,
@@ -44,6 +48,7 @@ CREATE TABLE "Subcategory" (
      )
 );
 
+-- Add foreign keys to Campaign table
 ALTER TABLE "Campaign" ADD CONSTRAINT "fk_Campaign_contact_id" FOREIGN KEY("contact_id")
 REFERENCES "Contacts" ("contact_id");
 
@@ -52,6 +57,18 @@ REFERENCES "Category" ("category_id");
 
 ALTER TABLE "Campaign" ADD CONSTRAINT "fk_Campaign_subcategory_id" FOREIGN KEY("subcategory_id")
 REFERENCES "Subcategory" ("subcategory_id");
+
+-- Load data into the Campaign table
+COPY "Campaign" FROM '/path/to/Resources/campaign.csv' WITH CSV HEADER;
+
+-- Load data into the Contacts table
+COPY "Contacts" FROM '/path/to/Resources/contacts.csv' WITH CSV HEADER;
+
+-- Load data into the Category table
+COPY "Category" FROM '/path/to/Resources/category.csv' WITH CSV HEADER;
+
+-- Load data into the Subcategory table
+COPY "Subcategory" FROM '/path/to/Resources/subcategory.csv' WITH CSV HEADER;
 
 SELECT * FROM "Campaign";
 
